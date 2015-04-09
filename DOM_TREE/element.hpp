@@ -51,9 +51,9 @@ void element:: mostrar(){
 	  for (it=l.begin(); it != l.end(); ++it)
 		std::cout << ' ' << *it;
 	  }
-	cout << " >";
+	cout << ">";
 	cout << inner;
-	cout << "</"<< tagna << ">";
+	///cout << "</"<< tagna << ">";
 	
 };
 

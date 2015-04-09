@@ -5,6 +5,7 @@
 #include "node.hpp"
 #include <string>
 #include<list>
+#include<stack>
 
 using namespace std;
 template<class Tdate>
@@ -26,7 +27,7 @@ class DOM_tree{
 		void getattlistatribute(string str,int &ind,list<string> &l);
 		void extractingdata(string str,int &ind,element &e);
 		node<Tdate>& estanode(node<Tdate> *raiz,string ID);
-		void mostrar(node<Tdate> *d);
+		void mostrar(node<Tdate> *d,int n);
 
 	public:
 		DOM_tree<Tdate>():dom(NULL){}
@@ -53,21 +54,62 @@ class DOM_tree{
 template<class Tdate>
 void DOM_tree<Tdate>:: mostrar(){
 
-    mostrar(this->dom);
+    mostrar(this->dom,0);
 };
 
 template<class Tdate>
-void DOM_tree<Tdate>::mostrar(node<Tdate> *d){
+void DOM_tree<Tdate>::mostrar(node<Tdate> *d,int n)
+{
     element e;
-
+	stack<string> P;
 	if(d!=NULL){
 
 		e=d->Element();
+		std::cout << "N= " << n;
+		if(n==0)
+		{
+			//std::cout << "\t";
+			}
 		e.mostrar();
-		mostrar(d->firstChild());
-		cout<<endl;
-		mostrar(d->nextSibling());
+		if(d->firstChild()!=NULL){
+		std::cout << std::endl;
+		
+		for(int i=0; i<=n;i++){
+			std::cout << "\t";
+			std::cout << "*";
+		}
+		}
+		P.push(e.tagname());
+		mostrar(d->firstChild(),n+1);
+		//std::cout << n << "<-";
+		if(d->nextSibling()!=NULL)
+		{
+			//std::cout << n << "<-";
+			std::cout << std::endl;
+			for(int i=0; i<n;i++){
+			std::cout << "\t";
+			std::cout << "*";
+			}
+			std::cout << "</" << P.top() << ">";
+			std::cout << std::endl;
+			P.pop();
+		}
+		//cout<<endl;
+		if(d->nextSibling()==NULL){
+		std::cout << "</" << P.top() << ">";
+			std::cout << std::endl;
+			P.pop();
+		for(int i=0; i<=n-1;i++)
+			std::cout << "\t";
+		}
+		mostrar(d->nextSibling(),n-1);
+		
 	}
+	//std::cout << std::endl;
+	/*while(P.size()>0){
+		std::cout << "pila" << P.top() << std::endl;
+		P.pop();
+	}*/
 }//end mostrar(const nodoArbol<Tdate>& n);
 
 template<class Tdate>
