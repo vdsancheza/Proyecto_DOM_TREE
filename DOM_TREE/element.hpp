@@ -35,7 +35,7 @@ class element{
 
 void element:: mostrar(){
 
-	list<string>::iterator it;
+	/*list<string>::iterator it;
 	cout<<tagna<<" ";
 	cout<<inner<<" "<<endl;
 	std::cout << "mylist contains:";
@@ -43,7 +43,18 @@ void element:: mostrar(){
   for (it=l.begin(); it != l.end(); ++it)
     std::cout << ' ' << *it;
 
-  std::cout <<endl;
+  std::cout <<endl;*/
+  list<string>::iterator it;
+  cout << "<"<< tagna;
+  if(l.size() !=0)
+  {
+	  for (it=l.begin(); it != l.end(); ++it)
+		std::cout << ' ' << *it;
+	  }
+	cout << " >";
+	cout << inner;
+	cout << "</"<< tagna << ">";
+	
 };
 
 element::element(string tag){

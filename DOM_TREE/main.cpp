@@ -12,6 +12,8 @@ int main()
 	string cadena="<html><head><title>Ejemplo de Página Web</title></head><body><h1>Una Página Web</h1></body></html>";
 	d.appendChild(cadena);
 	///
+	//std::cout << "Dom_Tree: " << d << std::endl;
+	///
 	//e.settagna("jeus");
 	//e.setinnerHTML("daniel");
 	//aux.appendChild(cadena1);

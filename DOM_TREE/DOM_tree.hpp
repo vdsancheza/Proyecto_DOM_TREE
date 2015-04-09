@@ -1,4 +1,4 @@
-#ifndef DOM_tree_H
+ #ifndef DOM_tree_H
 #define DOM_tree_H
 #include <iostream>
 #include "element.hpp"
@@ -40,6 +40,7 @@ class DOM_tree{
 		void appendChild(string str);
 		void removeChild(int pos);
 		void replaceChild(int pos,DOM_tree<Tdate> d);
+		bool DOM_Vacio(){return dom==NULL;}
 		DOM_tree<Tdate>& getElementByID(string ID);
 		node<Tdate>& estanode(string ID);
 		//void DOM_tree();
@@ -485,6 +486,21 @@ node<Tdate>& DOM_tree<Tdate>:: estanode(node<Tdate> *raiz,string ID){
 
 	return(*result);
 };//end int estanodo(nodoArbol<Tdate> *n);
-
-
+template <class Tdate>
+std::ostream& operator<<(std::ostream& os, const DOM_tree<Tdate>& A)
+{
+	
+	if(A.DOM_Vacio())
+	{
+		//std::cout << "(" << ptrRaiz->Elemento() << ")" << " ";
+		//l.InsertarAlPrincipio(ptrRaiz->Elemento());
+		os << A.dom->Element();
+		os << A.dom->firstChild();
+		os << A.dom->nextSibling();
+	}
+	
+	return os;
+	
+	
+}
 #endif
