@@ -19,8 +19,8 @@ class DOM_tree{
 		node<Tdate>& childnode(node<Tdate> *dom,int &aux,int p);
 		node<Tdate>& copiarnodes(node<Tdate> *n);
 		void eliminarnodes(node<Tdate> *p);
-		node<Tdate>& appendChild(string str,int tus,int &ind);
-		node<Tdate>& appendChild1(string str,int tus,int &ind);
+		node<Tdate>& appendChild(string str,int tus,int &ind,list<string> &tags);
+		node<Tdate>& appendChild1(string str,int tus,int &ind,list<string> &tags);
 		string gettagname(string str,int &ind);
 		string getinner(string str,int &ind);
 		void getattlistatribute(string str,int &ind,list<string> &l);
@@ -190,32 +190,41 @@ void DOM_tree<Tdate>:: appendChild(string str){
 
 	int ind=1;
 	int tus=str.size();
+	list<string> tags;
+	tags.push_back("");
 	if(str[3]!='<'){
 
-		this->dom=(&appendChild1(str,tus,ind));
+		this->dom=(&appendChild1(str,tus,ind,tags));
 
 	}//end if;
 };//end void appendChild(st
 
 template<class Tdate>
-node<Tdate>& DOM_tree<Tdate>:: appendChild1(string str,int tus,int &ind){
+node<Tdate>& DOM_tree<Tdate>:: appendChild1(string str,int tus,int &ind,list<string> &tags){
 
 
 	node<Tdate> *aux=NULL;
 	element *e=new element();
-
+	string st;
+	int tu;
     if(ind<tus){
 
 
         if(str[ind]!='/'&& str[ind-1]!='/'){
 
             extractingdata(str,ind,*e);
+            tags.push_back(e->tagname());
             aux=new node<Tdate>(*e);
-            aux->setFirstchild(&appendChild(str,tus,ind));
-            aux->setnExtsibling(&appendChild1(str,tus,ind));
+            aux->setFirstchild(&appendChild(str,tus,ind,tags));
+            aux->setnExtsibling(&appendChild1(str,tus,ind,tags));
 
 		}else{
-            ind+=4;
+
+				st=tags.back();
+				tags.pop_back();
+            	tu=st.size();
+
+                ind+=tu+3;
 		}
     }
         return *aux;
@@ -223,25 +232,32 @@ node<Tdate>& DOM_tree<Tdate>:: appendChild1(string str,int tus,int &ind){
 };//end void appendChild(string str);
 
 template<class Tdate>
-node<Tdate>& DOM_tree<Tdate>:: appendChild(string str,int tus,int &ind){
+node<Tdate>& DOM_tree<Tdate>:: appendChild(string str,int tus,int &ind,list<string> &tags){
 
 	element *e=new element();
 	node<Tdate> *aux=NULL;
+	string st;
+	int tu;
 
 	if(ind<tus){
 
 
             if( str[ind]!='/' && str[ind-1]!='/'){
-            aux=new node<Tdate>();
+
+
 
                 extractingdata(str,ind,*e);
-
-                aux->setElement(*e);
-                aux->setFirstchild(&appendChild1(str,tus,ind));
-
-                aux->setnExtsibling(&appendChild(str,tus,ind));
+                tags.push_back(e->tagname());
+				aux=new node<Tdate>(*e);
+                aux->setFirstchild(&appendChild1(str,tus,ind,tags));
+                aux->setnExtsibling(&appendChild(str,tus,ind,tags));
             }else{
-                ind+=4;
+
+            	st=tags.back();
+            	tags.pop_back();
+            	tu=st.size();
+
+                ind+=tu+3;
             }
 
 
