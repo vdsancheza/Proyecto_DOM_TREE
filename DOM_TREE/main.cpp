@@ -11,6 +11,7 @@ int main()
 	element e;
 	string cadena="<html><head><title>Ejemplo de Página Web</title></head><body><h1>Una Página Web</h1></body></html>";
 	d.appendChild(cadena);
+	///
 	//e.settagna("jeus");
 	//e.setinnerHTML("daniel");
 	//aux.appendChild(cadena1);
