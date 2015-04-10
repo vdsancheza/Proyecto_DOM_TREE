@@ -2,6 +2,14 @@
 #define ELEMENT_H_
 
 #include <iostream>
+/*	Victor Sanchez y Jesus Aguilar
+	Licenciatura en Ciencias de la Computacion.
+	Facultad Experimental de Ciencias Y Tecnologia.
+	Universidad de Carabobo.
+	4er Semestre.
+	Programacion II.
+	Profesora: Kiara Ottogalli.
+	CI: 22518142.							*/
 #include <string>
 #include <list>
 
@@ -16,16 +24,16 @@ class element{
 
 	public:
 
-		element():tagna(),inner(),l(){}
-		element(string tag);
-		element(const element &e);
+		element():tagna(),inner(),l(){}///constructor
+		element(string tag);///constructor
+		element(const element &e);///constructor
 
-		string tagname(){return this->tagna;}
-		list<string>& attributelist(){return (this->l);};
-		string innerHTML(){return this->inner;}
-		void settagna(string tag){this->tagna=tag;}
-		void setattributelist(list<string> l){this->l=l;}
-		void setinnerHTML(string inner){this->inner=inner;}
+		string tagname(){return this->tagna;}///Devuelve el tagname
+		list<string>& attributelist(){return (this->l);};///devuelve la lista de attr
+		string innerHTML(){return this->inner;} /// Devuelve el innerhtml
+		void settagna(string tag){this->tagna=tag;} ///reemplaza el tagname
+		void setattributelist(list<string> l){this->l=l;}///reemplaza la lista de attr por una nueva
+		void setinnerHTML(string inner){this->inner=inner;}///reemplaza el inner por uno nuevo
 
 		element& operator =(const element &e);
 
