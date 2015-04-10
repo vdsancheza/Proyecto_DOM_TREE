@@ -1,4 +1,12 @@
- #ifndef DOM_tree_H
+/*	Victor Sanchez y Jesus Aguilar
+	Licenciatura en Ciencias de la Computacion.
+	Facultad Experimental de Ciencias Y Tecnologia.
+	Universidad de Carabobo.
+	4er Semestre.
+	Programacion II.
+	Profesora: Kiara Ottogalli.
+	CI: 22518142.							*/
+#ifndef DOM_tree_H
 #define DOM_tree_H
 #include <iostream>
 #include "element.hpp"
@@ -24,17 +32,22 @@ class DOM_tree{
 		node<Tdate>& appendChild1(string str,int tus,int &ind,list<string> &tags);
 		string gettagname(string str,int &ind);
 		string getinner(string str,int &ind);
+		
 		void getattlistatribute(string str,int &ind,list<string> &l);
 		void extractingdata(string str,int &ind,element &e);
 		node<Tdate>& estanode(node<Tdate> *raiz,string ID);
 		void mostrar(node<Tdate> *d,int n);
+		void Show(node<Tdate> *d, int n);
 
 	public:
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	    ///----CONSTRUCTORES----///
 		DOM_tree<Tdate>():dom(NULL){}
 		DOM_tree<Tdate>(Tdate e);
 		DOM_tree<Tdate>(const DOM_tree<Tdate>& d);
 
 		DOM_tree<Tdate>& childnode(int p);
+		node<Tdate>* Dom(){return dom;}
 		void appendChild(int pos,DOM_tree<Tdate> d);
 		void appendChild(DOM_tree<Tdate> d);
 		void appendChild(Tdate e);
@@ -44,11 +57,11 @@ class DOM_tree{
 		bool DOM_Vacio(){return dom==NULL;}
 		DOM_tree<Tdate>& getElementByID(string ID);
 		node<Tdate>& estanode(string ID);
-		//void DOM_tree();
-		void Show(node<Tdate> *d, int n);
 		void mostrar();
-
+		void Vaciar();
+		
 		DOM_tree<Tdate>& operator = (const DOM_tree<Tdate> &d);
+		~DOM_tree();
 };//end class
 
 template<class Tdate>
@@ -103,55 +116,14 @@ void DOM_tree<Tdate>::mostrar(node<Tdate> *d,int n)
 	if(d!=NULL){
 
 		e=d->Element();
-		//std::cout << "N= " << n;
-		/*if(n==0)
-		{
-			//std::cout << "\t";
-			//n++;
-			}*/
 		e.mostrar();
-		/*if(d->firstChild()!=NULL){
-		std::cout << std::endl;
-		
-		for(int i=0; i<=n;i++){
-			std::cout << "\t";
-			//std::cout << "**";
-		}
-		}*/
 		P.push(e.tagname());
 		mostrar(d->firstChild(),n+1);
-		//std::cout << n << "<-";
-		/*if(d->nextSibling()!=NULL)
-		{
-			//std::cout << n << "<-";
-			std::cout << std::endl;
-			for(int i=0; i<n;i++){
-			std::cout << "\t";
-			//std::cout << "*";
-			}
-			std::cout << "</" << P.top() << ">";
-			std::cout << std::endl;
-			P.pop();
-		}
-		//cout<<endl;
-		if(d->nextSibling()==NULL){
 		std::cout << "</" << P.top() << ">";
-			std::cout << std::endl;
-			P.pop();
-		for(int i=0; i<=n-1;i++)
-			std::cout << "\t";
-		}*/
-		std::cout << "</" << P.top() << ">";
-		//std::cout << std::endl;
 		P.pop();
 		mostrar(d->nextSibling(),n-1);
 		
 	}
-	//std::cout << std::endl;
-	/*while(P.size()>0){
-		std::cout << "pila" << P.top() << std::endl;
-		P.pop();
-	}*/
 }//end mostrar(const nodoArbol<Tdate>& n);
 
 template<class Tdate>
@@ -277,7 +249,8 @@ void DOM_tree<Tdate>:: appendChild(string str){
 	int tus=str.size();
 	list<string> tags;
 	tags.push_back("");
-	if(str[3]!='<'){
+	//if(str[3]!='<'){
+	if(str.size()!= 0 ){
 
 		this->dom=(&appendChild1(str,tus,ind,tags));
 
@@ -573,18 +546,45 @@ node<Tdate>& DOM_tree<Tdate>:: estanode(node<Tdate> *raiz,string ID){
 template <class Tdate>
 std::ostream& operator<<(std::ostream& os, const DOM_tree<Tdate>& A)
 {
-	
-	if(A.DOM_Vacio())
+	DOM_tree<Tdate> d;
+	d=A;
+	if(!d.DOM_Vacio())
 	{
-		//std::cout << "(" << ptrRaiz->Elemento() << ")" << " ";
-		//l.InsertarAlPrincipio(ptrRaiz->Elemento());
-		os << A.dom->Element();
-		os << A.dom->firstChild();
-		os << A.dom->nextSibling();
-	}
+		d.mostrar();
+	}else{
+			os << "DOM_Tree Vacio.";
+		}
 	
 	return os;
-	
-	
+}
+
+template <class T>
+void DOM_tree<T>::Vaciar()
+{
+	DOM_tree<T> aux;
+
+	if(dom != NULL)
+	{
+		if(dom->firstChild() != NULL)
+		{
+			aux.dom = dom->firstChild();
+			aux.Vaciar();
+		}
+		if(dom->nextSibling() != NULL)
+		{
+			aux.dom = dom->nextSibling();
+			aux.Vaciar();
+		}
+		delete dom;
+		dom = NULL;
+	}
+}
+template <class T>
+DOM_tree<T>::~DOM_tree()
+{
+	if(dom != NULL)
+	{
+		Vaciar();
+	}
 }
 #endif
