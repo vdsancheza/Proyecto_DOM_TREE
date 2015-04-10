@@ -45,7 +45,7 @@ class DOM_tree{
 		DOM_tree<Tdate>& getElementByID(string ID);
 		node<Tdate>& estanode(string ID);
 		//void DOM_tree();
-
+		void Show(node<Tdate> *d, int n);
 		void mostrar();
 
 		DOM_tree<Tdate>& operator = (const DOM_tree<Tdate> &d);
@@ -54,9 +54,47 @@ class DOM_tree{
 template<class Tdate>
 void DOM_tree<Tdate>:: mostrar(){
 
-    mostrar(this->dom,0);
+    //mostrar(this->dom,0);
+    Show(this->dom,0);
 };
-
+template<class Tdate>
+void DOM_tree<Tdate>:: Show(node<Tdate> *d, int n)
+{
+	element e;
+	node<Tdate> *ptr;
+	if(d!=NULL)
+	{
+		for(int i=0; i<=(n-1); i++)
+		{
+			cout << "\t";
+		}
+		e= d->Element();
+		e.mostrar();
+		
+		if(d->firstChild()!=NULL)
+		{
+			cout << endl;
+			ptr=d->firstChild();
+			while(ptr!=NULL)
+			{
+				Show(ptr,n+1);
+				ptr=ptr->nextSibling();
+			}
+			for(int i=0; i<=(n-1); i++)
+			{
+				cout << "\t";
+			}
+			cout << "</" << e.tagname() << ">";
+			cout << endl;
+		}else{
+				
+			cout << e.innerHTML();
+			cout << "</" << e.tagname() << ">";
+			cout << endl;
+			}
+	}
+}
+	
 template<class Tdate>
 void DOM_tree<Tdate>::mostrar(node<Tdate> *d,int n)
 {
@@ -65,30 +103,31 @@ void DOM_tree<Tdate>::mostrar(node<Tdate> *d,int n)
 	if(d!=NULL){
 
 		e=d->Element();
-		std::cout << "N= " << n;
-		if(n==0)
+		//std::cout << "N= " << n;
+		/*if(n==0)
 		{
 			//std::cout << "\t";
-			}
+			//n++;
+			}*/
 		e.mostrar();
-		if(d->firstChild()!=NULL){
+		/*if(d->firstChild()!=NULL){
 		std::cout << std::endl;
 		
 		for(int i=0; i<=n;i++){
 			std::cout << "\t";
-			std::cout << "*";
+			//std::cout << "**";
 		}
-		}
+		}*/
 		P.push(e.tagname());
 		mostrar(d->firstChild(),n+1);
 		//std::cout << n << "<-";
-		if(d->nextSibling()!=NULL)
+		/*if(d->nextSibling()!=NULL)
 		{
 			//std::cout << n << "<-";
 			std::cout << std::endl;
 			for(int i=0; i<n;i++){
 			std::cout << "\t";
-			std::cout << "*";
+			//std::cout << "*";
 			}
 			std::cout << "</" << P.top() << ">";
 			std::cout << std::endl;
@@ -101,7 +140,10 @@ void DOM_tree<Tdate>::mostrar(node<Tdate> *d,int n)
 			P.pop();
 		for(int i=0; i<=n-1;i++)
 			std::cout << "\t";
-		}
+		}*/
+		std::cout << "</" << P.top() << ">";
+		//std::cout << std::endl;
+		P.pop();
 		mostrar(d->nextSibling(),n-1);
 		
 	}

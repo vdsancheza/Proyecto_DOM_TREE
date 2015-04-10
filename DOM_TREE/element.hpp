@@ -52,7 +52,7 @@ void element:: mostrar(){
 		std::cout << ' ' << *it;
 	  }
 	cout << ">";
-	cout << inner;
+	//cout << inner;
 	///cout << "</"<< tagna << ">";
 	
 };
