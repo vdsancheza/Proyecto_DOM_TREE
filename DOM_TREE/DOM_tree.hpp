@@ -551,10 +551,7 @@ std::ostream& operator<<(std::ostream& os, const DOM_tree<Tdate>& A)
 	if(!d.DOM_Vacio())
 	{
 		d.mostrar();
-	}else{
-			os << "DOM_Tree Vacio.";
-		}
-	
+	}
 	return os;
 }
 
