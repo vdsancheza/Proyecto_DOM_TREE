@@ -1,7 +1,3 @@
-#ifndef ELEMENT_H_
-#define ELEMENT_H_
-
-#include <iostream>
 /*	Victor Sanchez y Jesus Aguilar
 	Licenciatura en Ciencias de la Computacion.
 	Facultad Experimental de Ciencias Y Tecnologia.
@@ -10,6 +6,10 @@
 	Programacion II.
 	Profesora: Kiara Ottogalli.
 	CI: 22518142.							*/
+#ifndef ELEMENT_H_
+#define ELEMENT_H_
+
+#include <iostream>
 #include <string>
 #include <list>
 
